@@ -1,0 +1,95 @@
+name: roboshop 
+Services:
+ mongodb:
+  build: ./mongodb
+  image: srikanth865/mongodb:v1
+  container_name: mongodb
+ catalogue:
+  build: ./catalogue
+  image: srikanth865/catalogue:v1
+  container_name: catalogue
+  depends_on:
+  - mongodb
+  frontend:
+   build: ./frontend
+   image: srikanth865/frontend:v1
+   container_name: frontend
+   ports:
+   - "80:80"
+   depends_on:
+   - catalogue
+  redis:
+   image: redis:7
+   container_name: redis # docker run -d --name redis --network roboshop redis:7
+  user:
+   build: ./user
+   image: srikanth865/user:v1
+   container_name: user
+   Environment:
+    MONGO: true
+    REDIS_URL: 'redis://redis:6379'
+    MONGO_URL: "mongodb://mongodb:27017/users"
+   depends_on:
+   - redis
+   - mongodb
+  cart:
+   build: ./cart
+   image: srikanth865/cart:v1
+   container_name: cart
+   Environment:
+    REDIS_HOST: redis
+    CATALOGUE_HOST: catalogue
+    CATALOGUE_PORT: 8080
+   depends_on:
+   - redis
+   - catalogue
+  mysql:
+   image: ./mysql
+   build: srikanth865/mysql
+   container_name: mysql
+   command: --mysql-native-password=ON --innodb-lock_wait_timeout=120
+   Environment:
+      MYSQL_ROOT_PASSWORD: "RoboShop@1"
+
+  shipping:
+   build: ./shipping
+   image: srikanth865/shipping:v1
+   container_name: shipping
+   environment:
+    CART_ENDPOINT: cart:8080
+    DB_HOST: mysql
+    depends_on:
+    - mysql
+    - cart
+  rabbitmq:
+   image: rabbitmq:3
+   container_name: rabbitmq
+   environment:
+     RABBITMQ_DEFAULT_USER: roboshop
+     RABBITMQ_DEFAULT_PASS: roboshop123
+  payment:
+   build: ./payment
+   image: srikanth865/payment:v1
+   container_name: payment
+   environment:
+    CART_HOST: cart
+    CART_PORT: 8080
+    USER_HOST: user
+    USER_PORT: 8080
+    AMQP_HOST: rabbitmq
+    AMQP_USER: roboshop
+    AMQP_PASS: roboshop123
+   depends_on:
+    - cart
+    - user
+    - rabbitmq
+
+
+    
+
+
+
+
+   
+
+    
