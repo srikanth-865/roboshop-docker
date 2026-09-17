@@ -1,21 +1,21 @@
 name: roboshop 
 Services:
  mongodb:
-  build: ./mongodb
-  image: srikanth865/mongodb:v1
-  container_name: mongodb
+  build: ./mongodb   #we say go to mongodb file inside current directory
+  image: srikanth865/mongodb:v1 #its like build image taking my hub name with image name docker build -t srikanth865/mongodb:v1
+  container_name: mongodb #its like run container docker run -d srikanth865/mongodb:v1
  catalogue:
   build: ./catalogue
   image: srikanth865/catalogue:v1
   container_name: catalogue
   depends_on:
-  - mongodb
+  - mongodb # mongodb depends on catalogue by loading data so we put in depends
   frontend:
    build: ./frontend
    image: srikanth865/frontend:v1
    container_name: frontend
    ports:
-   - "80:80"
+   - "80:80"   #its like -p 80:80 
    depends_on:
    - catalogue
   redis:
@@ -25,7 +25,7 @@ Services:
    build: ./user
    image: srikanth865/user:v1
    container_name: user
-   Environment:
+   Environment: #we give in RUN time so build time reduced speed increases
     MONGO: true
     REDIS_URL: 'redis://redis:6379'
     MONGO_URL: "mongodb://mongodb:27017/users"
@@ -83,7 +83,11 @@ Services:
     - cart
     - user
     - rabbitmq
-
+  networks:
+   default: # this means all the services in this file use this network roboshop
+    name: roboshop
+    driver: bridge
+    external: false # if true it should be created manually, if false docker creates this network as we are creating
 
     
 
