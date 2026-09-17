@@ -5,7 +5,7 @@ services:
   image: srikanth865/mongodb:v1 #its like build image taking my hub name with image name docker build -t srikanth865/mongodb:v1
   container_name: mongodb #its like run container docker run -d srikanth865/mongodb:v1
   volumes:
-  - mongodb-data:/data/db
+  - mongodb:/data/db
  catalogue:
   build: ./catalogue
   image: srikanth865/catalogue:v1
