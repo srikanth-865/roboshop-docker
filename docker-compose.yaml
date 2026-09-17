@@ -45,7 +45,7 @@ services:
    - catalogue
  mysql:
    build: ./mysql
-   image: srikanth865/mysql
+   image: srikanth865/mysql:v1
    container_name: mysql
    command: --mysql-native-password=ON --innodb-lock_wait_timeout=120
    environment:
