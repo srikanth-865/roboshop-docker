@@ -21,7 +21,7 @@ services:
    depends_on:
    - catalogue
  redis:
-   image: redis:7
+   image: redis:7  #we are taking offical image in docker HUb direct without build 
    container_name: redis # docker run -d --name redis --network roboshop redis:7
    volumes:
    - redis:/data
@@ -29,7 +29,7 @@ services:
    build: ./user
    image: srikanth865/user:v1
    container_name: user
-   environment: #we give in RUN time so build time reduced speed increases
+   environment: #we give in here only for increasing spped in build time we give speed reduced
     MONGO: true
     REDIS_URL: 'redis://redis:6379'
     MONGO_URL: "mongodb://mongodb:27017/users"
