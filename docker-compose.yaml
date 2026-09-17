@@ -25,7 +25,7 @@ services:
    build: ./user
    image: srikanth865/user:v1
    container_name: user
-   Environment: #we give in RUN time so build time reduced speed increases
+   environment: #we give in RUN time so build time reduced speed increases
     MONGO: true
     REDIS_URL: 'redis://redis:6379'
     MONGO_URL: "mongodb://mongodb:27017/users"
@@ -36,7 +36,7 @@ services:
    build: ./cart
    image: srikanth865/cart:v1
    container_name: cart
-   Environment:
+   environment:
     REDIS_HOST: redis
     CATALOGUE_HOST: catalogue
     CATALOGUE_PORT: 8080
@@ -44,11 +44,11 @@ services:
    - redis
    - catalogue
   mysql:
-   image: ./mysql
-   build: srikanth865/mysql
+   build: ./mysql
+   image: srikanth865/mysql
    container_name: mysql
    command: --mysql-native-password=ON --innodb-lock_wait_timeout=120
-   Environment:
+   environment:
       MYSQL_ROOT_PASSWORD: "RoboShop@1"
 
   shipping:
@@ -83,8 +83,8 @@ services:
     - cart
     - user
     - rabbitmq
-  networks:
-   default: # this means all the services in this file use this network roboshop
+networks:
+  default: # this means all the services in this file use this network roboshop
     name: roboshop
     driver: bridge
     external: false # if true it should be created manually, if false docker creates this network as we are creating
