@@ -4,6 +4,8 @@ services:
   build: ./mongodb   #we say go to mongodb file inside current directory
   image: srikanth865/mongodb:v1 #its like build image taking my hub name with image name docker build -t srikanth865/mongodb:v1
   container_name: mongodb #its like run container docker run -d srikanth865/mongodb:v1
+  volumes:
+  - mongodb-data:/data/db
  catalogue:
   build: ./catalogue
   image: srikanth865/catalogue:v1
@@ -21,6 +23,8 @@ services:
  redis:
    image: redis:7
    container_name: redis # docker run -d --name redis --network roboshop redis:7
+   volumes:
+   - redis:/data
  user:
    build: ./user
    image: srikanth865/user:v1
@@ -50,6 +54,8 @@ services:
    command: --innodb-lock_wait_timeout=120
    environment:
       MYSQL_ROOT_PASSWORD: "RoboShop@1"
+   volumes:
+   - mysql:/var/lib/mysql
 
  shipping:
    build: ./shipping
@@ -67,6 +73,8 @@ services:
    environment:
      RABBITMQ_DEFAULT_USER: roboshop
      RABBITMQ_DEFAULT_PASS: roboshop123
+   volumes:
+   - rabbitmq:/var/lib/rabbitmq #rabbitmq stores data in the path  /var/lib/rabbitmq as official rabbitmq hub
  payment:
    build: ./payment
    image: srikanth865/payment:v1
@@ -88,6 +96,11 @@ networks:
     name: roboshop
     driver: bridge
     external: false # if true it should be created manually, if false docker creates this network as we are creating
+volumes: #we are adding volumes to our databases stateful applications only 
+ mongodb: # docker volume create mongodb
+ redis: # docker volume create redis
+ mysql:
+ rabbitmq: 
 
     
 
@@ -96,4 +109,4 @@ networks:
 
    
 
-    
+     
