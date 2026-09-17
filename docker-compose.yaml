@@ -10,7 +10,7 @@ services:
   container_name: catalogue
   depends_on:
   - mongodb # mongodb depends on catalogue by loading data so we put in depends
-  frontend:
+ frontend:
    build: ./frontend
    image: srikanth865/frontend:v1
    container_name: frontend
@@ -18,7 +18,7 @@ services:
    - "80:80"   #its like -p 80:80 
    depends_on:
    - catalogue
-  redis:
+ redis:
    image: redis:7
    container_name: redis # docker run -d --name redis --network roboshop redis:7
   user:
@@ -32,7 +32,7 @@ services:
    depends_on:
    - redis
    - mongodb
-  cart:
+ cart:
    build: ./cart
    image: srikanth865/cart:v1
    container_name: cart
@@ -43,7 +43,7 @@ services:
    depends_on:
    - redis
    - catalogue
-  mysql:
+ mysql:
    build: ./mysql
    image: srikanth865/mysql
    container_name: mysql
@@ -51,23 +51,23 @@ services:
    environment:
       MYSQL_ROOT_PASSWORD: "RoboShop@1"
 
-  shipping:
+ shipping:
    build: ./shipping
    image: srikanth865/shipping:v1
    container_name: shipping
    environment:
     CART_ENDPOINT: cart:8080
     DB_HOST: mysql
-    depends_on:
+   depends_on:
     - mysql
     - cart
-  rabbitmq:
+ rabbitmq:
    image: rabbitmq:3
    container_name: rabbitmq
    environment:
      RABBITMQ_DEFAULT_USER: roboshop
      RABBITMQ_DEFAULT_PASS: roboshop123
-  payment:
+ payment:
    build: ./payment
    image: srikanth865/payment:v1
    container_name: payment
