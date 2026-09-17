@@ -21,7 +21,7 @@ services:
  redis:
    image: redis:7
    container_name: redis # docker run -d --name redis --network roboshop redis:7
-  user:
+ user:
    build: ./user
    image: srikanth865/user:v1
    container_name: user
