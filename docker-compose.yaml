@@ -1,5 +1,5 @@
 name: roboshop 
-Services:
+services:
  mongodb:
   build: ./mongodb   #we say go to mongodb file inside current directory
   image: srikanth865/mongodb:v1 #its like build image taking my hub name with image name docker build -t srikanth865/mongodb:v1
