@@ -17,7 +17,7 @@ services:
    image: srikanth865/frontend:v1
    container_name: frontend
    ports:
-   - "80:80"   #its like -p 80:80 
+   - "80:80"   #its like  -p 80:80
    depends_on:
    - catalogue
  redis:
@@ -47,6 +47,7 @@ services:
    depends_on:
    - redis
    - catalogue
+
  mysql:
    build: ./mysql
    image: srikanth865/mysql:v1
@@ -92,7 +93,7 @@ services:
     - user
     - rabbitmq
 networks:
-  default: # this means all the services in this file use this network roboshop
+  default: # this means all the services in this file use this network roboshop 
     name: roboshop
     driver: bridge
     external: false # if true it should be created manually, if false docker creates this network as we are creating
@@ -102,10 +103,28 @@ volumes: #we are adding volumes to our databases stateful applications only
  mysql:
  rabbitmq: 
 
-    
+####Frontend ports using in webpage#######
+##ports:
+  # - "80:80"
+  #    ↑   ↑
+  #    |   |
+  #  Host Container
+  #  port   port
+#So:
+# Host port 80 → Container port 80
+# When you open:
+
+# http://EC2-PUBLIC-IP  ex: http://90.12.22 
+
+# the request reaches:
+
+# EC2 :80 → frontend container :80 → Nginx
 
 
-
+##if i use different host ports like 80/865 we search like this in webpage
+# 80:80	http://54.123.45.67
+# 80:80	http://54.123.45.67:80 ✅
+# 865:80	http://54.123.45.67:865
 
    
 
