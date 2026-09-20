@@ -67,6 +67,7 @@ CMD [ "node","server.js" ]
 # COPY *.js .
 # COPY package.json .
 # RUN npm install
+##we are gibing in build for this catalogue only it takes lots of time so for cart user we gave in runtime compose file for speed increases
 # ENV MONGO=true \
 #     MONGO_URL="mongodb://mongodb:27017/catalogue"
 # CMD [ "node","server.js" ]

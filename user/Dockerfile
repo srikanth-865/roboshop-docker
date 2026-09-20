@@ -49,8 +49,6 @@ CMD ["node", "server.js"]
 # WORKDIR /app
 # COPY --from=builder /app /app  
 # EXPOSE 8080 
-# ENV MONGO=true \
-#     MONGO_URL="mongodb://mongodb:27017/catalogue"
 # CMD [ "node","server.js" ]
 
 
@@ -60,6 +58,4 @@ CMD ["node", "server.js"]
 # COPY *.js .
 # COPY package.json .
 # RUN npm install
-# ENV MONGO=true \
-#     MONGO_URL="mongodb://mongodb:27017/catalogue"
 # CMD [ "node","server.js" ]

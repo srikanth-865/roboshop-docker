@@ -23,8 +23,6 @@ CMD ["node", "server.js"]
 # COPY *.js .
 # COPY package.json .
 # RUN npm install
-# ENV MONGO=true \
-#     MONGO_URL="mongodb://mongodb:27017/catalogue"
 
 # FROM node:20.20.2-alpine3.22 
 # WORKDIR /app
@@ -33,8 +31,6 @@ CMD ["node", "server.js"]
 #     chown -R roboshop:roboshop /app
 # COPY --from=builder /app /app  
 # EXPOSE 8080
-# ENV MONGO=true \
-#     MONGO_URL="mongodb://mongodb:27017/catalogue"
 # USER roboshop
 # CMD [ "node","server.js" ]
 
@@ -47,15 +43,11 @@ CMD ["node", "server.js"]
 # COPY *.js .
 # COPY package.json .
 # RUN npm install
-# ENV MONGO=true \
-#     MONGO_URL="mongodb://mongodb:27017/catalogue"
 
 # FROM node:20.20.2-alpine3.22  #this runs at run time
 # WORKDIR /app
 # COPY --from=builder /app /app  
 # EXPOSE 8080 
-# ENV MONGO=true \
-#     MONGO_URL="mongodb://mongodb:27017/catalogue"
 # CMD [ "node","server.js" ]
 
 
@@ -65,8 +57,6 @@ CMD ["node", "server.js"]
 # COPY *.js .
 # COPY package.json .
 # RUN npm install
-# ENV MONGO=true \
-#     MONGO_URL="mongodb://mongodb:27017/catalogue"
 # CMD [ "node","server.js" ]
 
 
