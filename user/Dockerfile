@@ -1,12 +1,12 @@
 ## fourth time we make change layers for build time decrease speed increases
-FROM node:20.20.20.2-alpine3.22 AS builder
+FROM node:20.20.2-alpine3.22 AS builder
 WORKDIR /app
 COPY package.json .
 COPY *.js .
 RUN npm install
 
 
-FROM node:20.20.20.2-alpine3.22
+FROM node:20.20.2-alpine3.22
 WORKDIR /app
 EXPOSE 8080
 RUN addgroup -S roboshop && adduser -S -G roboshop roboshop && \
